@@ -24,9 +24,9 @@ dataset = pd.read_csv('Salary_Data.csv')
 # print(dataset.head())
 
 #Looks like Salary is dependent on years experiance, remember to extract values for
-# 2-dim array. Remember the points are linked by index
-X = dataset['YearsExperience'].values
-y = dataset['Salary'].values
+# 2-dim array. Remember the points are linked by index. Use iloc for accracy, [rows,colums]
+X = dataset.iloc[:,:-1].values
+y = dataset.iloc[:,:2].values
 # print(X)
 # print(y)
 
@@ -35,4 +35,9 @@ from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=32, test_size=0.2)
 
-# Since there are only two features, we don't need to worry about feature scaling
+# We don't need to worry about feature scaling, because library does it for us, and since, there is only 1 feature
+from sklearn.linear_model import LinearRegression
+# Create an instance to call methods off
+lr = LinearRegression()
+# Fit the algo with the data
+lr.fit(X_train, y_train)
