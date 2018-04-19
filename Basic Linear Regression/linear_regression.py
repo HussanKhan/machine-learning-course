@@ -41,3 +41,9 @@ from sklearn.linear_model import LinearRegression
 lr = LinearRegression()
 # Fit the algo with the data
 lr.fit(X_train, y_train)
+
+# Now let's test our model, we have 89% accuracy
+print(lr.score(X_test, y_test))
+pred = lr.predict(4)
+# Extract value from numpy array
+print(pred[0,1])
