@@ -26,14 +26,14 @@ dataset = pd.read_csv('Salary_Data.csv')
 #Looks like Salary is dependent on years experiance, remember to extract values for
 # 2-dim array. Remember the points are linked by index. Use iloc for accracy, [rows,colums]
 X = dataset.iloc[:,:-1].values
-y = dataset.iloc[:,:2].values
+y = dataset.iloc[:,1].values
 # print(X)
 # print(y)
 
 # Now split into training set and testing set
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=32, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=32)
 
 # We don't need to worry about feature scaling, because library does it for us, and since, there is only 1 feature
 from sklearn.linear_model import LinearRegression
@@ -42,8 +42,22 @@ lr = LinearRegression()
 # Fit the algo with the data
 lr.fit(X_train, y_train)
 
-# Now let's test our model, we have 89% accuracy
+# Now let's test our model, we have 95.5% accuracy
 print(lr.score(X_test, y_test))
 pred = lr.predict(4)
 # Extract value from numpy array
-print(pred[0,1])
+print(pred[0])
+
+# Let's graph the model
+# This is creating the graph, usally first instance
+plt.scatter(X_train, y_train, color='red')
+# Plot line, X is normal, and y are predictions
+# This is plotting things on the graph
+plt.plot(X_train, lr.predict(X_train), color='blue')
+plt.scatter(X_test, y_test, color='green')
+# Just add some labels
+plt.title('Salary v Experiance')
+plt.xlabel('Years of Experiance')
+plt.ylabel('Salary')
+
+plt.show()
