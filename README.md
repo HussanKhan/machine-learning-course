@@ -1,4 +1,4 @@
-# This is for a machine learning I'm taking on Udemy.com
+# This is for a machine learning course I'm taking on Udemy.com
 
 I'm learning machine learning with python, and this repo just stores my practice
 projects or programs.
