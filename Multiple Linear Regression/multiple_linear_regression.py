@@ -19,6 +19,7 @@ or m of each independent varible
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 dataset = pd.read_csv('50_Startups.csv')
 
@@ -73,3 +74,29 @@ for i in y_pred:
     index += 1
 
 # Backward elimination, remove varibles that are not very important in preditcing
+# We will remove columns that have a p-value the is wrong.
+# The p-value is the likelyhood of getting a stat
+# After taking a STD, you see where the stat you have is placed on the std graph.
+# We will keep removing x with wrong p values until all p values are acceptable
+
+# We need to add a column of ones for the b0 varible, other libraries do it automatically
+import statsmodels.formula.api as sm
+
+# Create array of ones and append it to x
+# We have to do this so b0 means something for our model
+X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis = 1)
+
+# This will only contain varible that are sigfig to the model
+# X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+# We will remove one by one
+
+# 1st we have to set a sig value, ot the p-value cut off
+# if below sig value than it will stay, else it will go
+X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+print(X_opt)
+# Now run an OLS with y and new X
+# 1. Fit model with all possible predictors
+
+# Remove X with high p values
+r_OLS = sm.OLS(endog=y, exog= X_opt).fit()
+print(r_OLS.summary())
